@@ -28,7 +28,7 @@ All notable changes to this project will be documented in this file.
   - API
     - Uppercase the method parameter.
 
-## [0.1.1][0.1.0] - 2017-11-08
+## [0.1.1][0.1.1] - 2017-11-08
 ### Fixed
 - AJAX
   - The URL parameter was almost never correctly handled.
