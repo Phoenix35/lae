@@ -10,14 +10,12 @@ Chrome 45,
 Opera 32,
 Safari 7.1 / iOS 8[\*](#Safari-case)  
 
-<a id="Safari-case" style="font-size: x-small">
-  \* In the case of Safari,
+<sup id="Safari-case">
+  * In the case of Safari,
   the Fetch API support, used internally for XMLHttpRequests
-  (as per [the spec][the-spec]),
+  (as per <a href="https://xhr.spec.whatwg.org/#ref-for-concept-fetch%E2%91%A5" title="WhatWG XHR spec">the spec</a>),
   started in Safari 10.1 / iOS 10.3 (April 2017!)
-</a>
-
-[the-spec]: <https://xhr.spec.whatwg.org/#ref-for-concept-fetch%E2%91%A5> (WhatWG XHR spec)
+</sup>
 
 ## Table of contents
 - [How to use](#How-to-use)
@@ -111,6 +109,5 @@ NYI
 [Back to top](#readme)  
 
 <div align="center">
-  [![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)  
-  <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">The Lazy and Easy library</span> by [Phoenix35](https://github.com/Phoenix35/lae) is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">The Lazy and Easy library</span> de <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/Phoenix35/lae" property="cc:attributionName" rel="cc:attributionURL">Phoenix35</a> est mis à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">licence Creative Commons Attribution -  Partage dans les Mêmes Conditions 4.0 International</a>.
 </div>
