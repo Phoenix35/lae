@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file.
     - If NDJSON is wanted as a Response type, provide a default parser.
     - Always return a Promise (default the method to `GET`).
 
-## [0.2.0][0.2.0] - 2017-11-12
+## [0.2.0][0.2.0] - 2017-11-13
 ### Added
 - AJAX
   - Now works in workers (NOT TESTED)
@@ -47,9 +47,9 @@ All notable changes to this project will be documented in this file.
 - Idea: XPath
 
 
-[0.0.1]: phoenix35@08b90f67386702ee359befa9d7d2c34867fa82b9 (First commit)
-[0.1.0]: phoenix35@6d181f6b5fcf2566330c1347c49661eef4e29925 (First actual code)
-[0.1.1]: phoenix35@597cccc0d3f8c4509ad19de27b1f85f84f20b926
+[0.0.1]: <https://github.com/Phoenix35/lae/commit/@08b90f67386702ee359befa9d7d2c34867fa82b9> (First commit)
+[0.1.0]: <https://github.com/Phoenix35/lae/commit/@6d181f6b5fcf2566330c1347c49661eef4e29925> (First actual code)
+[0.1.1]: <https://github.com/Phoenix35/lae/commit/@597cccc0d3f8c4509ad19de27b1f85f84f20b926>
 [0.2.0]: <https://github.com/Phoenix35/lae/tree/master>
 
 ---
