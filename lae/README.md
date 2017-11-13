@@ -8,9 +8,9 @@ EdgeHTML 14,
 Firefox 44,
 Chrome 45,
 Opera 32,
-Safari 7.1 / iOS 8[\*](#Safari-case)  
+Safari 7.1 / iOS 8[\*](#safari-case)  
 
-<sup id="Safari-case">
+<sup id="safari-case">
   * In the case of Safari,
   the Fetch API support, used internally for XMLHttpRequests
   (as per <a href="https://xhr.spec.whatwg.org/#ref-for-concept-fetch%E2%91%A5" title="WhatWG XHR spec">the spec</a>),
@@ -18,10 +18,10 @@ Safari 7.1 / iOS 8[\*](#Safari-case)
 </sup>
 
 ## Table of contents
-- [How to use](#How-to-use)
-  - [AJAX](#AJAX)
-  - [XPath](#XPath)
-  - [Canvas](#Canvas)
+- [How to use](#how-to-use)
+  - [AJAX](#ajax)
+  - [XPath](#xpath)
+  - [Canvas](#canvas)
 
 ## How to use
 The lae library is directly added to the `self` object
@@ -33,9 +33,9 @@ lae.ajax( ... )
 ```
 
 #### Functions
-[`lae.ajax`](#AJAX) for XMLHttpRequests.  
-[`lae.xpath`](#XPath) for XPath queries.  
-[`lae.canvas`](#Canvas) for canvas handling.  
+[`lae.ajax`](#ajax) for XMLHttpRequests.  
+[`lae.xpath`](#xpath) for XPath queries.  
+[`lae.canvas`](#canvas) for canvas handling.  
 
 ---
 
