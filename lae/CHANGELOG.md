@@ -21,8 +21,8 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - Consistency in the first lines of the files
-- Some spelling errors.
-- Linting
+- Some spelling errors
+- Some linting (still not finished)
 
 ## [0.2.0][0.2.0] - 2017-11-13
 ### Added
