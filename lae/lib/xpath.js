@@ -1,7 +1,9 @@
-(function (window, document) {
+/* global self:false */
+(function(window) {
   'use strict';
+
   let lae = window.lae || {};
 
-  window.lae = lae;
 
-}(window, document));
+  window.lae = lae;
+}(self));

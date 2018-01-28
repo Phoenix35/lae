@@ -13,6 +13,17 @@ All notable changes to this project will be documented in this file.
     - If NDJSON is wanted as a Response type, provide a default parser.
     - Always return a Promise (default the method to `GET`).
 
+## [0.2.1][0.2.1] - 2018-01-28
+### Added
+- Utils
+  - Template literal
+  - Random integer
+
+### Fixed
+- Consistency in the first lines of the files
+- Some spelling errors.
+- Linting
+
 ## [0.2.0][0.2.0] - 2017-11-13
 ### Added
 - AJAX

@@ -1,5 +1,7 @@
+/* global self:false */
 (function(window) {
   'use strict';
+
   let lae = window.lae || {};
 
   // Comply with RFC 3986 for URI encoding
@@ -23,7 +25,7 @@
   // Small utility function to use for several values
   // associated to one name (PHP convention).
   let namingConvention = name =>
-    name + (name.lastIndexOf(`[]`) === name.length - 2) ? '' : '[]';
+    name + (name.lastIndexOf('[]') === name.length - 2) ? '' : '[]';
 
   // DIY->
   // While submitting a form, you MUST be aware of overrides
@@ -74,9 +76,44 @@
    * =>
    */
   lae.ajax = function(url = '', method = '') {
-    if (method !== '' || method !== 'GET' || method !== 'POST') {
-      new Error(`Method ${method} not supported.`);
-    }
+    if (method !== '' || method !== 'GET' || method !== 'POST')
+      throw new Error(`Method ${method} not supported.`);
+
+    let loopObjectAndAppend = (obj, appendFn, init = []) => {
+      // This is really tiresome but we MUST go
+      // through each key / pair
+      // Object being non-iterable, for-of does not work
+      for (let name in obj) {
+        if ({}.hasOwnProperty.call(obj, name)) {
+          // Action is a reserved keyword for the form submit
+          if (name !== 'action') {
+            // All well-formed iterables (that are not a string) SHOULD be
+            // appended under the same name
+            // e.g Files, Arrays, user-defined Iterators, ...
+            if (
+              // Not a string?
+              typeof obj[name] !== 'string' &&
+              // Iterable?
+              typeof obj[name][Symbol.iterator] === 'function' &&
+              // Well-formed?
+              typeof obj[name][Symbol.iterator]() === 'object' &&
+              typeof obj[name][Symbol.iterator]().next === 'function' &&
+              // No need to go through finished iterators
+              obj[name][Symbol.iterator]().next().done === false
+            ) {
+              // DIY->
+              // It is up to you NOT to send an INFINITE iterator
+              // End DIY
+              for (let value of obj[name]) appendFn.call(init, name, value);
+            } else
+              // String or not iterable? Append the value
+              appendFn.call(init, name, obj[name]);
+          }
+        }
+      }
+
+      return init;
+    };
 
     let send = function(method, url, args = {}) {
       // XHR is asynchronous now, deal with it
@@ -85,7 +122,7 @@
         let client = new XMLHttpRequest();
 
         client.onload = function() {
-          200 <= this.status && this.status <= 299
+          this.status >= 200 && this.status <= 299
             ? resolve(this.response)
             : reject(this.statusText);
         };
@@ -94,19 +131,20 @@
         };
 
         // This is for later use.
-        if (args instanceof HTMLFormElement || args instanceof FormData) {
+        if (args instanceof HTMLFormElement || args instanceof FormData)
           args.form = args;
-        } else if (args.form === undefined) {
+        else if (args.form === undefined) {
           // Put a copy of enumerable properties in the .form object.
           args.form = {};
           for (let name in args) {
-            if (args.hasOwnProperty(name)) {
+            if ({}.hasOwnProperty.call(args, name)) {
               // Warn for possible private values (_key)
-              if (name[0] === '_')
+              if (name[0] === '_') {
                 console.warn(
                   `The element ${name} was added.`,
-                  `If this was not intended, make it non-enumerable.`
+                  'If this was not intended, make it non-enumerable.'
                 );
+              }
 
               args.form[name] = args[name];
             }
@@ -115,10 +153,9 @@
 
         let uri;
 
-        // url has priority over the form's action attribute
-        if (typeof url === 'string' && url !== '') {
-          uri = url;
-        } else {
+        // Url has priority over the form's action attribute
+        if (typeof url === 'string' && url !== '') uri = url;
+        else {
           // If no url was provided and form contains action,
           // it is meant to be the URI to open and MUST NOT be sent as data
           uri = args.form.action || '';
@@ -137,14 +174,14 @@
           else if (args.form instanceof FormData)
             // A complete FormData is given
             myForm = args.form;
-          else if (args.form instanceof Object)
+          else if (args.form instanceof Object) {
             // An object-like is given => Transform to FormData
             myForm = loopObjectAndAppend(
               args.form,
               new FormData().append,
               new FormData()
             );
-          else
+          } else
             reject(new Error('AJAX argument is mal-formed. Cannot continue.'));
         } else {
           if (args.form instanceof HTMLFormElement) {
@@ -160,21 +197,23 @@
               if (fieldType === 'FILE') {
                 // Use URL.createObjectURL() if you want to pass the contents
                 // of Blobs, Files or MediaSources
-                for (let file of field)
+                for (let file of field) {
                   myForm +=
                     '&' +
                     encodeRFC3986Component(field.name) +
                     '=' +
                     encodeRFC3986Component(file.name);
+                }
               } else if (
-                (fieldType !== 'RADIO' && fieldType !== 'CHECKBOX') ||
+                fieldType !== 'RADIO' && fieldType !== 'CHECKBOX' ||
                 field.checked
-              )
+              ) {
                 myForm +=
                   '&' +
                   encodeRFC3986Component(field.name) +
                   '=' +
                   encodeRFC3986Component(field.value);
+              }
             }
           } else if (args.form instanceof Object) {
             //
@@ -184,7 +223,7 @@
               this.push(
                 encodeRFC3986Component(name) +
                   '=' +
-                  // value will be the return value of the .toString() method
+                  // Value will be the return value of the .toString() method
                   // e.g. : new Blob() => "[object Blob]"
                   // See URL.createObjectURL() above
                   encodeRFC3986Component(
@@ -200,6 +239,7 @@
         let user = null,
           password = null,
           withCredentials = false;
+
         if (args._credentials) {
           user = args._credentials.user || null;
           password = args._credentials.password || null;
@@ -211,12 +251,12 @@
           method === 'POST'
             ? uri
             : // Concatenate the elements to send via GET
-              uri.concat(
-                // Don't add '&' or '?' at the end of the URI
-                // if myForm is empty
-                myForm !== '' ? (~uri.lastIndexOf('?') ? '&' : '?') : '',
-                myForm
-              ),
+            uri.concat(
+              // Don't add '&' or '?' at the end of the URI
+              // if myForm is empty
+              myForm !== '' ? ~uri.lastIndexOf('?') ? '&' : '?' : '',
+              myForm
+            ),
           true,
           user,
           password
@@ -229,49 +269,13 @@
       return promise;
     };
 
-    let loopObjectAndAppend = (obj, appendFn, init = []) => {
-      // This is really tiresome but we MUST go
-      // through each key / pair
-      // Object being non-iterable, for-of does not work
-      for (let name in obj) {
-        if (obj.hasOwnProperty(name)) {
-          // action is a reserved keyword for the form submit
-          if (name !== 'action') {
-            // All well-formed iterables (that are not a string) SHOULD be
-            // appended under the same name
-            // e.g Files, Arrays, user-defined Iterators, ...
-            if (
-              // Not a string?
-              typeof obj[name] !== 'string' &&
-              // Iterable?
-              obj[name][Symbol.iterator] &&
-              // Well-formed?
-              typeof obj[name][Symbol.iterator]().next === 'function' &&
-              // No need to go through finished iterators
-              obj[name][Symbol.iterator]().next().done === false
-            ) {
-              // DIY->
-              // It is up to you NOT to send an INFINITE iterator
-              // End DIY
-              for (let value of obj[name]) {
-                appendFn.call(init, name, value);
-              }
-            } else
-              // String or not iterable? Append the value
-              appendFn.call(init, name, obj[name]);
-          }
-        }
-      }
-      return init;
-    };
-
     return method === ''
       ? {
-          get: args => send('GET', url, args),
-          post: args => send('POST', url, args),
-        }
+        get : args => send('GET', url, args),
+        post: args => send('POST', url, args),
+      }
       : args => send(method.toUpperCase(), url, args);
   };
 
   window.lae = lae;
-})(self);
+}(self));

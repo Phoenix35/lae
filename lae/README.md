@@ -22,6 +22,7 @@ Safari 7.1 / iOS 8[\*](#safari-case)
   - [AJAX](#ajax)
   - [XPath](#xpath)
   - [Canvas](#canvas)
+  - [Utilities](#utils)
 
 ## How to use
 The lae library is directly added to the `self` object
@@ -36,6 +37,7 @@ lae.ajax( ... )
 [`lae.ajax`](#ajax) for XMLHttpRequests.  
 [`lae.xpath`](#xpath) for XPath queries.  
 [`lae.canvas`](#canvas) for canvas handling.  
+[`lae.utils`](#utils) for general utility functions.
 
 ---
 
@@ -104,6 +106,45 @@ NYI
 
 ### Canvas
 NYI
+
+---
+
+### Utils
+A bunch of tools that can be used everywhere. I won't polyfill ES6+ functions.
+
+#### lae.pyTemplate`literal`(...args)
+Use this if you have string literals with repetitive arguments.
+``` javascript
+lae.pyTemplate`Ed Sheeran - Shape of You [Chorus]
+${0}
+We push and pull like a magnet do
+Although my heart is falling too
+${2}
+And last night you were in my room
+And now my bed sheets smell like you
+${1}
+${2}
+${3}
+${2}
+${3}
+${2}
+${3}
+${2}
+${1}
+${0}
+`(
+  `I'm in love with the shape of you`,
+  `Every day discovering something brand new`,
+  `I'm in love with your body`,
+  `Oh—I—oh—I—oh—I—oh—I`,
+)
+```
+
+#### lae.randint([min=0, max=1])
+Returns a random integer between min and max inclusive.
+``` javascript
+lae.randint(10, 56) // integer in the [10, 56] range
+```
 
 ---
 [Back to top](#the-lazy-and-easy-library---readme)  
