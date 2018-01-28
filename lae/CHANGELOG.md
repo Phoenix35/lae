@@ -61,7 +61,8 @@ All notable changes to this project will be documented in this file.
 [0.0.1]: <https://github.com/Phoenix35/lae/commit/08b90f67386702ee359befa9d7d2c34867fa82b9> (First commit)
 [0.1.0]: <https://github.com/Phoenix35/lae/commit/6d181f6b5fcf2566330c1347c49661eef4e29925> (First actual code)
 [0.1.1]: <https://github.com/Phoenix35/lae/commit/34912c2031988a0063935b67f45e01de30cf3b67>
-[0.2.0]: <https://github.com/Phoenix35/lae/tree/master>
+[0.2.0]: <https://github.com/Phoenix35/lae/commit/9b9fb2b945ec024defaeb638aed99812a8d660e7> (Mainly doc)
+[0.2.1]: <https://github.com/Phoenix35/lae/tree/master>
 
 ---
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
